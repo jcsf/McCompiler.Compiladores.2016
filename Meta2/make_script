@@ -1,0 +1,4 @@
+#! /bin/bash
+make
+zip -q -T mccompilerToInes.zip mccompiler.l mccompiler.y ast.c ast.h makefile
+zip -q -T mccompiler.zip mccompiler.l mccompiler.y ast.c ast.h

@@ -1,0 +1,2932 @@
+Terminals unused in grammar
+
+   RESERVED
+
+
+Gramática
+
+    0 $accept: Start $end
+
+    1 Start: Start FunctionDefinition
+    2      | Start FunctionDeclaration
+    3      | Start Declaration
+    4      | FunctionDefinition
+    5      | FunctionDeclaration
+    6      | Declaration
+
+    7 FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody
+
+    8 FunctionBody: LBRACE DeclarationList StatementList RBRACE
+    9             | LBRACE DeclarationList RBRACE
+   10             | LBRACE StatementList RBRACE
+   11             | LBRACE RBRACE
+   12             | LBRACE error RBRACE
+
+   13 DeclarationList: DeclarationList Declaration
+   14                | Declaration
+
+   15 StatementList: StatementList ErrStatement
+   16              | Statement
+
+   17 FunctionDeclaration: TypeSpec FunctionDeclarator SEMI
+
+   18 FunctionDeclarator: AstList ID LPAR ParameterList RPAR
+   19                   | ID LPAR ParameterList RPAR
+
+   20 ParameterList: ParameterList COMMA ParameterDeclaration
+   21              | ParameterDeclaration
+
+   22 ParameterDeclaration: TypeSpec AstList ID
+   23                     | TypeSpec ID
+   24                     | TypeSpec AstList
+   25                     | TypeSpec
+
+   26 Declaration: TypeSpec DeclaratorList SEMI
+   27            | error SEMI
+
+   28 DeclaratorList: DeclaratorList COMMA Declarator
+   29               | Declarator
+
+   30 TypeSpec: CHAR
+   31         | INT
+   32         | VOID
+
+   33 Declarator: AstList ID LSQ INTLIT RSQ
+   34           | ID LSQ INTLIT RSQ
+   35           | AstList ID
+   36           | ID
+
+   37 AstList: AstList AST
+   38        | AST
+
+   39 ErrStatement: ExprOpt SEMI
+   40             | LBRACE StatList RBRACE
+   41             | LBRACE RBRACE
+   42             | LBRACE error RBRACE
+   43             | IF LPAR GeneralExpr RPAR ErrStatement
+   44             | IF LPAR GeneralExpr RPAR ErrStatement ELSE ErrStatement
+   45             | FOR LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement
+   46             | RETURN ExprOpt SEMI
+   47             | error SEMI
+
+   48 Statement: ExprOpt SEMI
+   49          | LBRACE StatList RBRACE
+   50          | LBRACE RBRACE
+   51          | LBRACE error RBRACE
+   52          | IF LPAR GeneralExpr RPAR ErrStatement
+   53          | IF LPAR GeneralExpr RPAR ErrStatement ELSE ErrStatement
+   54          | FOR LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement
+   55          | RETURN ExprOpt SEMI
+
+   56 StatList: StatList ErrStatement
+   57         | ErrStatement
+
+   58 ExprOpt: GeneralExpr
+   59        | %empty
+
+   60 GeneralExpr: GeneralExpr COMMA Expr
+   61            | Expr
+
+   62 Expr: Expr ASSIGN Expr
+   63     | Expr AND Expr
+   64     | Expr OR Expr
+   65     | Expr EQ Expr
+   66     | Expr NE Expr
+   67     | Expr LT Expr
+   68     | Expr GT Expr
+   69     | Expr LE Expr
+   70     | Expr GE Expr
+   71     | Expr PLUS Expr
+   72     | Expr MINUS Expr
+   73     | Expr AST Expr
+   74     | Expr DIV Expr
+   75     | Expr MOD Expr
+   76     | AMP Expr
+   77     | AST Expr
+   78     | PLUS Expr
+   79     | MINUS Expr
+   80     | NOT Expr
+   81     | Expr LSQ GeneralExpr RSQ
+   82     | ID LPAR ExprList RPAR
+   83     | ID LPAR RPAR
+   84     | ID LPAR error RPAR
+   85     | ID
+   86     | INTLIT
+   87     | CHRLIT
+   88     | STRLIT
+   89     | LPAR GeneralExpr RPAR
+   90     | LPAR error RPAR
+
+   91 ExprList: ExprList COMMA Expr
+   92         | Expr
+
+
+Terminais, com as regras aonde aparecem
+
+$end (0) 0
+error (256) 12 27 42 47 51 84 90
+AMP (258) 76
+AND (259) 63
+ASSIGN (260) 62
+AST (261) 37 38 73 77
+CHAR (262) 30
+COMMA (263) 20 28 60 91
+DIV (264) 74
+ELSE (265) 44 53
+EQ (266) 65
+FOR (267) 45 54
+GE (268) 70
+GT (269) 68
+IF (270) 43 44 52 53
+INT (271) 31
+LBRACE (272) 8 9 10 11 12 40 41 42 49 50 51
+LE (273) 69
+LPAR (274) 18 19 43 44 45 52 53 54 82 83 84 89 90
+LSQ (275) 33 34 81
+LT (276) 67
+MINUS (277) 72 79
+MOD (278) 75
+NE (279) 66
+NOT (280) 80
+OR (281) 64
+PLUS (282) 71 78
+RBRACE (283) 8 9 10 11 12 40 41 42 49 50 51
+RETURN (284) 46 55
+RPAR (285) 18 19 43 44 45 52 53 54 82 83 84 89 90
+RSQ (286) 33 34 81
+SEMI (287) 17 26 27 39 45 46 47 48 54 55
+VOID (288) 32
+RESERVED (289)
+ID (290) 18 19 22 23 33 34 35 36 82 83 84 85
+INTLIT (291) 33 34 86
+CHRLIT (292) 87
+STRLIT (293) 88
+IFX (294)
+
+
+Não-terminais, com as regras aonde aparecem
+
+$accept (40)
+    à esquerda: 0
+Start (41)
+    à esquerda: 1 2 3 4 5 6, à direita: 0 1 2 3
+FunctionDefinition (42)
+    à esquerda: 7, à direita: 1 4
+FunctionBody (43)
+    à esquerda: 8 9 10 11 12, à direita: 7
+DeclarationList (44)
+    à esquerda: 13 14, à direita: 8 9 13
+StatementList (45)
+    à esquerda: 15 16, à direita: 8 10 15
+FunctionDeclaration (46)
+    à esquerda: 17, à direita: 2 5
+FunctionDeclarator (47)
+    à esquerda: 18 19, à direita: 7 17
+ParameterList (48)
+    à esquerda: 20 21, à direita: 18 19 20
+ParameterDeclaration (49)
+    à esquerda: 22 23 24 25, à direita: 20 21
+Declaration (50)
+    à esquerda: 26 27, à direita: 3 6 13 14
+DeclaratorList (51)
+    à esquerda: 28 29, à direita: 26 28
+TypeSpec (52)
+    à esquerda: 30 31 32, à direita: 7 17 22 23 24 25 26
+Declarator (53)
+    à esquerda: 33 34 35 36, à direita: 28 29
+AstList (54)
+    à esquerda: 37 38, à direita: 18 22 24 33 35 37
+ErrStatement (55)
+    à esquerda: 39 40 41 42 43 44 45 46 47, à direita: 15 43 44 45
+    52 53 54 56 57
+Statement (56)
+    à esquerda: 48 49 50 51 52 53 54 55, à direita: 16
+StatList (57)
+    à esquerda: 56 57, à direita: 40 49 56
+ExprOpt (58)
+    à esquerda: 58 59, à direita: 39 45 46 48 54 55
+GeneralExpr (59)
+    à esquerda: 60 61, à direita: 43 44 52 53 58 60 81 89
+Expr (60)
+    à esquerda: 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78
+    79 80 81 82 83 84 85 86 87 88 89 90, à direita: 60 61 62 63 64
+    65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 91 92
+ExprList (61)
+    à esquerda: 91 92, à direita: 82 91
+
+
+State 0
+
+    0 $accept: . Start $end
+
+    error  fazer shift, e ir para o estado 1
+    CHAR   fazer shift, e ir para o estado 2
+    INT    fazer shift, e ir para o estado 3
+    VOID   fazer shift, e ir para o estado 4
+
+    Start                ir para o estado 5
+    FunctionDefinition   ir para o estado 6
+    FunctionDeclaration  ir para o estado 7
+    Declaration          ir para o estado 8
+    TypeSpec             ir para o estado 9
+
+
+State 1
+
+   27 Declaration: error . SEMI
+
+    SEMI  fazer shift, e ir para o estado 10
+
+
+State 2
+
+   30 TypeSpec: CHAR .
+
+    $default  reduzir usando a regra 30 (TypeSpec)
+
+
+State 3
+
+   31 TypeSpec: INT .
+
+    $default  reduzir usando a regra 31 (TypeSpec)
+
+
+State 4
+
+   32 TypeSpec: VOID .
+
+    $default  reduzir usando a regra 32 (TypeSpec)
+
+
+State 5
+
+    0 $accept: Start . $end
+    1 Start: Start . FunctionDefinition
+    2      | Start . FunctionDeclaration
+    3      | Start . Declaration
+
+    $end   fazer shift, e ir para o estado 11
+    error  fazer shift, e ir para o estado 1
+    CHAR   fazer shift, e ir para o estado 2
+    INT    fazer shift, e ir para o estado 3
+    VOID   fazer shift, e ir para o estado 4
+
+    FunctionDefinition   ir para o estado 12
+    FunctionDeclaration  ir para o estado 13
+    Declaration          ir para o estado 14
+    TypeSpec             ir para o estado 9
+
+
+State 6
+
+    4 Start: FunctionDefinition .
+
+    $default  reduzir usando a regra 4 (Start)
+
+
+State 7
+
+    5 Start: FunctionDeclaration .
+
+    $default  reduzir usando a regra 5 (Start)
+
+
+State 8
+
+    6 Start: Declaration .
+
+    $default  reduzir usando a regra 6 (Start)
+
+
+State 9
+
+    7 FunctionDefinition: TypeSpec . FunctionDeclarator FunctionBody
+   17 FunctionDeclaration: TypeSpec . FunctionDeclarator SEMI
+   26 Declaration: TypeSpec . DeclaratorList SEMI
+
+    AST  fazer shift, e ir para o estado 15
+    ID   fazer shift, e ir para o estado 16
+
+    FunctionDeclarator  ir para o estado 17
+    DeclaratorList      ir para o estado 18
+    Declarator          ir para o estado 19
+    AstList             ir para o estado 20
+
+
+State 10
+
+   27 Declaration: error SEMI .
+
+    $default  reduzir usando a regra 27 (Declaration)
+
+
+State 11
+
+    0 $accept: Start $end .
+
+    $default  aceite
+
+
+State 12
+
+    1 Start: Start FunctionDefinition .
+
+    $default  reduzir usando a regra 1 (Start)
+
+
+State 13
+
+    2 Start: Start FunctionDeclaration .
+
+    $default  reduzir usando a regra 2 (Start)
+
+
+State 14
+
+    3 Start: Start Declaration .
+
+    $default  reduzir usando a regra 3 (Start)
+
+
+State 15
+
+   38 AstList: AST .
+
+    $default  reduzir usando a regra 38 (AstList)
+
+
+State 16
+
+   19 FunctionDeclarator: ID . LPAR ParameterList RPAR
+   34 Declarator: ID . LSQ INTLIT RSQ
+   36           | ID .
+
+    LPAR  fazer shift, e ir para o estado 21
+    LSQ   fazer shift, e ir para o estado 22
+
+    $default  reduzir usando a regra 36 (Declarator)
+
+
+State 17
+
+    7 FunctionDefinition: TypeSpec FunctionDeclarator . FunctionBody
+   17 FunctionDeclaration: TypeSpec FunctionDeclarator . SEMI
+
+    LBRACE  fazer shift, e ir para o estado 23
+    SEMI    fazer shift, e ir para o estado 24
+
+    FunctionBody  ir para o estado 25
+
+
+State 18
+
+   26 Declaration: TypeSpec DeclaratorList . SEMI
+   28 DeclaratorList: DeclaratorList . COMMA Declarator
+
+    COMMA  fazer shift, e ir para o estado 26
+    SEMI   fazer shift, e ir para o estado 27
+
+
+State 19
+
+   29 DeclaratorList: Declarator .
+
+    $default  reduzir usando a regra 29 (DeclaratorList)
+
+
+State 20
+
+   18 FunctionDeclarator: AstList . ID LPAR ParameterList RPAR
+   33 Declarator: AstList . ID LSQ INTLIT RSQ
+   35           | AstList . ID
+   37 AstList: AstList . AST
+
+    AST  fazer shift, e ir para o estado 28
+    ID   fazer shift, e ir para o estado 29
+
+
+State 21
+
+   19 FunctionDeclarator: ID LPAR . ParameterList RPAR
+
+    CHAR  fazer shift, e ir para o estado 2
+    INT   fazer shift, e ir para o estado 3
+    VOID  fazer shift, e ir para o estado 4
+
+    ParameterList         ir para o estado 30
+    ParameterDeclaration  ir para o estado 31
+    TypeSpec              ir para o estado 32
+
+
+State 22
+
+   34 Declarator: ID LSQ . INTLIT RSQ
+
+    INTLIT  fazer shift, e ir para o estado 33
+
+
+State 23
+
+    8 FunctionBody: LBRACE . DeclarationList StatementList RBRACE
+    9             | LBRACE . DeclarationList RBRACE
+   10             | LBRACE . StatementList RBRACE
+   11             | LBRACE . RBRACE
+   12             | LBRACE . error RBRACE
+
+    error   fazer shift, e ir para o estado 34
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    CHAR    fazer shift, e ir para o estado 2
+    FOR     fazer shift, e ir para o estado 37
+    IF      fazer shift, e ir para o estado 38
+    INT     fazer shift, e ir para o estado 3
+    LBRACE  fazer shift, e ir para o estado 39
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RBRACE  fazer shift, e ir para o estado 44
+    RETURN  fazer shift, e ir para o estado 45
+    VOID    fazer shift, e ir para o estado 4
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    DeclarationList  ir para o estado 50
+    StatementList    ir para o estado 51
+    Declaration      ir para o estado 52
+    TypeSpec         ir para o estado 53
+    Statement        ir para o estado 54
+    ExprOpt          ir para o estado 55
+    GeneralExpr      ir para o estado 56
+    Expr             ir para o estado 57
+
+
+State 24
+
+   17 FunctionDeclaration: TypeSpec FunctionDeclarator SEMI .
+
+    $default  reduzir usando a regra 17 (FunctionDeclaration)
+
+
+State 25
+
+    7 FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody .
+
+    $default  reduzir usando a regra 7 (FunctionDefinition)
+
+
+State 26
+
+   28 DeclaratorList: DeclaratorList COMMA . Declarator
+
+    AST  fazer shift, e ir para o estado 15
+    ID   fazer shift, e ir para o estado 58
+
+    Declarator  ir para o estado 59
+    AstList     ir para o estado 60
+
+
+State 27
+
+   26 Declaration: TypeSpec DeclaratorList SEMI .
+
+    $default  reduzir usando a regra 26 (Declaration)
+
+
+State 28
+
+   37 AstList: AstList AST .
+
+    $default  reduzir usando a regra 37 (AstList)
+
+
+State 29
+
+   18 FunctionDeclarator: AstList ID . LPAR ParameterList RPAR
+   33 Declarator: AstList ID . LSQ INTLIT RSQ
+   35           | AstList ID .
+
+    LPAR  fazer shift, e ir para o estado 61
+    LSQ   fazer shift, e ir para o estado 62
+
+    $default  reduzir usando a regra 35 (Declarator)
+
+
+State 30
+
+   19 FunctionDeclarator: ID LPAR ParameterList . RPAR
+   20 ParameterList: ParameterList . COMMA ParameterDeclaration
+
+    COMMA  fazer shift, e ir para o estado 63
+    RPAR   fazer shift, e ir para o estado 64
+
+
+State 31
+
+   21 ParameterList: ParameterDeclaration .
+
+    $default  reduzir usando a regra 21 (ParameterList)
+
+
+State 32
+
+   22 ParameterDeclaration: TypeSpec . AstList ID
+   23                     | TypeSpec . ID
+   24                     | TypeSpec . AstList
+   25                     | TypeSpec .
+
+    AST  fazer shift, e ir para o estado 15
+    ID   fazer shift, e ir para o estado 65
+
+    $default  reduzir usando a regra 25 (ParameterDeclaration)
+
+    AstList  ir para o estado 66
+
+
+State 33
+
+   34 Declarator: ID LSQ INTLIT . RSQ
+
+    RSQ  fazer shift, e ir para o estado 67
+
+
+State 34
+
+   12 FunctionBody: LBRACE error . RBRACE
+   27 Declaration: error . SEMI
+
+    RBRACE  fazer shift, e ir para o estado 68
+    SEMI    fazer shift, e ir para o estado 10
+
+
+State 35
+
+   76 Expr: AMP . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 69
+
+
+State 36
+
+   77 Expr: AST . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 70
+
+
+State 37
+
+   54 Statement: FOR . LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement
+
+    LPAR  fazer shift, e ir para o estado 71
+
+
+State 38
+
+   52 Statement: IF . LPAR GeneralExpr RPAR ErrStatement
+   53          | IF . LPAR GeneralExpr RPAR ErrStatement ELSE ErrStatement
+
+    LPAR  fazer shift, e ir para o estado 72
+
+
+State 39
+
+   49 Statement: LBRACE . StatList RBRACE
+   50          | LBRACE . RBRACE
+   51          | LBRACE . error RBRACE
+
+    error   fazer shift, e ir para o estado 73
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RBRACE  fazer shift, e ir para o estado 77
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 79
+    StatList      ir para o estado 80
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 40
+
+   89 Expr: LPAR . GeneralExpr RPAR
+   90     | LPAR . error RPAR
+
+    error   fazer shift, e ir para o estado 82
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    GeneralExpr  ir para o estado 83
+    Expr         ir para o estado 57
+
+
+State 41
+
+   79 Expr: MINUS . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 84
+
+
+State 42
+
+   80 Expr: NOT . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 85
+
+
+State 43
+
+   78 Expr: PLUS . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 86
+
+
+State 44
+
+   11 FunctionBody: LBRACE RBRACE .
+
+    $default  reduzir usando a regra 11 (FunctionBody)
+
+
+State 45
+
+   55 Statement: RETURN . ExprOpt SEMI
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    $default  reduzir usando a regra 59 (ExprOpt)
+
+    ExprOpt      ir para o estado 87
+    GeneralExpr  ir para o estado 56
+    Expr         ir para o estado 57
+
+
+State 46
+
+   82 Expr: ID . LPAR ExprList RPAR
+   83     | ID . LPAR RPAR
+   84     | ID . LPAR error RPAR
+   85     | ID .
+
+    LPAR  fazer shift, e ir para o estado 88
+
+    $default  reduzir usando a regra 85 (Expr)
+
+
+State 47
+
+   86 Expr: INTLIT .
+
+    $default  reduzir usando a regra 86 (Expr)
+
+
+State 48
+
+   87 Expr: CHRLIT .
+
+    $default  reduzir usando a regra 87 (Expr)
+
+
+State 49
+
+   88 Expr: STRLIT .
+
+    $default  reduzir usando a regra 88 (Expr)
+
+
+State 50
+
+    8 FunctionBody: LBRACE DeclarationList . StatementList RBRACE
+    9             | LBRACE DeclarationList . RBRACE
+   13 DeclarationList: DeclarationList . Declaration
+
+    error   fazer shift, e ir para o estado 1
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    CHAR    fazer shift, e ir para o estado 2
+    FOR     fazer shift, e ir para o estado 37
+    IF      fazer shift, e ir para o estado 38
+    INT     fazer shift, e ir para o estado 3
+    LBRACE  fazer shift, e ir para o estado 39
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RBRACE  fazer shift, e ir para o estado 89
+    RETURN  fazer shift, e ir para o estado 45
+    VOID    fazer shift, e ir para o estado 4
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    StatementList  ir para o estado 90
+    Declaration    ir para o estado 91
+    TypeSpec       ir para o estado 53
+    Statement      ir para o estado 54
+    ExprOpt        ir para o estado 55
+    GeneralExpr    ir para o estado 56
+    Expr           ir para o estado 57
+
+
+State 51
+
+   10 FunctionBody: LBRACE StatementList . RBRACE
+   15 StatementList: StatementList . ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RBRACE  fazer shift, e ir para o estado 93
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 94
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 52
+
+   14 DeclarationList: Declaration .
+
+    $default  reduzir usando a regra 14 (DeclarationList)
+
+
+State 53
+
+   26 Declaration: TypeSpec . DeclaratorList SEMI
+
+    AST  fazer shift, e ir para o estado 15
+    ID   fazer shift, e ir para o estado 58
+
+    DeclaratorList  ir para o estado 18
+    Declarator      ir para o estado 19
+    AstList         ir para o estado 60
+
+
+State 54
+
+   16 StatementList: Statement .
+
+    $default  reduzir usando a regra 16 (StatementList)
+
+
+State 55
+
+   48 Statement: ExprOpt . SEMI
+
+    SEMI  fazer shift, e ir para o estado 95
+
+
+State 56
+
+   58 ExprOpt: GeneralExpr .
+   60 GeneralExpr: GeneralExpr . COMMA Expr
+
+    COMMA  fazer shift, e ir para o estado 96
+
+    $default  reduzir usando a regra 58 (ExprOpt)
+
+
+State 57
+
+   61 GeneralExpr: Expr .
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AND     fazer shift, e ir para o estado 97
+    ASSIGN  fazer shift, e ir para o estado 98
+    AST     fazer shift, e ir para o estado 99
+    DIV     fazer shift, e ir para o estado 100
+    EQ      fazer shift, e ir para o estado 101
+    GE      fazer shift, e ir para o estado 102
+    GT      fazer shift, e ir para o estado 103
+    LE      fazer shift, e ir para o estado 104
+    LSQ     fazer shift, e ir para o estado 105
+    LT      fazer shift, e ir para o estado 106
+    MINUS   fazer shift, e ir para o estado 107
+    MOD     fazer shift, e ir para o estado 108
+    NE      fazer shift, e ir para o estado 109
+    OR      fazer shift, e ir para o estado 110
+    PLUS    fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 61 (GeneralExpr)
+
+
+State 58
+
+   34 Declarator: ID . LSQ INTLIT RSQ
+   36           | ID .
+
+    LSQ  fazer shift, e ir para o estado 22
+
+    $default  reduzir usando a regra 36 (Declarator)
+
+
+State 59
+
+   28 DeclaratorList: DeclaratorList COMMA Declarator .
+
+    $default  reduzir usando a regra 28 (DeclaratorList)
+
+
+State 60
+
+   33 Declarator: AstList . ID LSQ INTLIT RSQ
+   35           | AstList . ID
+   37 AstList: AstList . AST
+
+    AST  fazer shift, e ir para o estado 28
+    ID   fazer shift, e ir para o estado 112
+
+
+State 61
+
+   18 FunctionDeclarator: AstList ID LPAR . ParameterList RPAR
+
+    CHAR  fazer shift, e ir para o estado 2
+    INT   fazer shift, e ir para o estado 3
+    VOID  fazer shift, e ir para o estado 4
+
+    ParameterList         ir para o estado 113
+    ParameterDeclaration  ir para o estado 31
+    TypeSpec              ir para o estado 32
+
+
+State 62
+
+   33 Declarator: AstList ID LSQ . INTLIT RSQ
+
+    INTLIT  fazer shift, e ir para o estado 114
+
+
+State 63
+
+   20 ParameterList: ParameterList COMMA . ParameterDeclaration
+
+    CHAR  fazer shift, e ir para o estado 2
+    INT   fazer shift, e ir para o estado 3
+    VOID  fazer shift, e ir para o estado 4
+
+    ParameterDeclaration  ir para o estado 115
+    TypeSpec              ir para o estado 32
+
+
+State 64
+
+   19 FunctionDeclarator: ID LPAR ParameterList RPAR .
+
+    $default  reduzir usando a regra 19 (FunctionDeclarator)
+
+
+State 65
+
+   23 ParameterDeclaration: TypeSpec ID .
+
+    $default  reduzir usando a regra 23 (ParameterDeclaration)
+
+
+State 66
+
+   22 ParameterDeclaration: TypeSpec AstList . ID
+   24                     | TypeSpec AstList .
+   37 AstList: AstList . AST
+
+    AST  fazer shift, e ir para o estado 28
+    ID   fazer shift, e ir para o estado 116
+
+    $default  reduzir usando a regra 24 (ParameterDeclaration)
+
+
+State 67
+
+   34 Declarator: ID LSQ INTLIT RSQ .
+
+    $default  reduzir usando a regra 34 (Declarator)
+
+
+State 68
+
+   12 FunctionBody: LBRACE error RBRACE .
+
+    $default  reduzir usando a regra 12 (FunctionBody)
+
+
+State 69
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   76     | AMP Expr .
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    LSQ  fazer shift, e ir para o estado 105
+
+    $default  reduzir usando a regra 76 (Expr)
+
+
+State 70
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   77     | AST Expr .
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    LSQ  fazer shift, e ir para o estado 105
+
+    $default  reduzir usando a regra 77 (Expr)
+
+
+State 71
+
+   54 Statement: FOR LPAR . ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    $default  reduzir usando a regra 59 (ExprOpt)
+
+    ExprOpt      ir para o estado 117
+    GeneralExpr  ir para o estado 56
+    Expr         ir para o estado 57
+
+
+State 72
+
+   52 Statement: IF LPAR . GeneralExpr RPAR ErrStatement
+   53          | IF LPAR . GeneralExpr RPAR ErrStatement ELSE ErrStatement
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    GeneralExpr  ir para o estado 118
+    Expr         ir para o estado 57
+
+
+State 73
+
+   47 ErrStatement: error . SEMI
+   51 Statement: LBRACE error . RBRACE
+
+    RBRACE  fazer shift, e ir para o estado 119
+    SEMI    fazer shift, e ir para o estado 120
+
+
+State 74
+
+   45 ErrStatement: FOR . LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement
+
+    LPAR  fazer shift, e ir para o estado 121
+
+
+State 75
+
+   43 ErrStatement: IF . LPAR GeneralExpr RPAR ErrStatement
+   44             | IF . LPAR GeneralExpr RPAR ErrStatement ELSE ErrStatement
+
+    LPAR  fazer shift, e ir para o estado 122
+
+
+State 76
+
+   40 ErrStatement: LBRACE . StatList RBRACE
+   41             | LBRACE . RBRACE
+   42             | LBRACE . error RBRACE
+
+    error   fazer shift, e ir para o estado 123
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RBRACE  fazer shift, e ir para o estado 124
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 79
+    StatList      ir para o estado 125
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 77
+
+   50 Statement: LBRACE RBRACE .
+
+    $default  reduzir usando a regra 50 (Statement)
+
+
+State 78
+
+   46 ErrStatement: RETURN . ExprOpt SEMI
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    $default  reduzir usando a regra 59 (ExprOpt)
+
+    ExprOpt      ir para o estado 126
+    GeneralExpr  ir para o estado 56
+    Expr         ir para o estado 57
+
+
+State 79
+
+   57 StatList: ErrStatement .
+
+    $default  reduzir usando a regra 57 (StatList)
+
+
+State 80
+
+   49 Statement: LBRACE StatList . RBRACE
+   56 StatList: StatList . ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RBRACE  fazer shift, e ir para o estado 127
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 128
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 81
+
+   39 ErrStatement: ExprOpt . SEMI
+
+    SEMI  fazer shift, e ir para o estado 129
+
+
+State 82
+
+   90 Expr: LPAR error . RPAR
+
+    RPAR  fazer shift, e ir para o estado 130
+
+
+State 83
+
+   60 GeneralExpr: GeneralExpr . COMMA Expr
+   89 Expr: LPAR GeneralExpr . RPAR
+
+    COMMA  fazer shift, e ir para o estado 96
+    RPAR   fazer shift, e ir para o estado 131
+
+
+State 84
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   79     | MINUS Expr .
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    LSQ  fazer shift, e ir para o estado 105
+
+    $default  reduzir usando a regra 79 (Expr)
+
+
+State 85
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   80     | NOT Expr .
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    LSQ  fazer shift, e ir para o estado 105
+
+    $default  reduzir usando a regra 80 (Expr)
+
+
+State 86
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   78     | PLUS Expr .
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    LSQ  fazer shift, e ir para o estado 105
+
+    $default  reduzir usando a regra 78 (Expr)
+
+
+State 87
+
+   55 Statement: RETURN ExprOpt . SEMI
+
+    SEMI  fazer shift, e ir para o estado 132
+
+
+State 88
+
+   82 Expr: ID LPAR . ExprList RPAR
+   83     | ID LPAR . RPAR
+   84     | ID LPAR . error RPAR
+
+    error   fazer shift, e ir para o estado 133
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RPAR    fazer shift, e ir para o estado 134
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr      ir para o estado 135
+    ExprList  ir para o estado 136
+
+
+State 89
+
+    9 FunctionBody: LBRACE DeclarationList RBRACE .
+
+    $default  reduzir usando a regra 9 (FunctionBody)
+
+
+State 90
+
+    8 FunctionBody: LBRACE DeclarationList StatementList . RBRACE
+   15 StatementList: StatementList . ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RBRACE  fazer shift, e ir para o estado 137
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 94
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 91
+
+   13 DeclarationList: DeclarationList Declaration .
+
+    $default  reduzir usando a regra 13 (DeclarationList)
+
+
+State 92
+
+   47 ErrStatement: error . SEMI
+
+    SEMI  fazer shift, e ir para o estado 120
+
+
+State 93
+
+   10 FunctionBody: LBRACE StatementList RBRACE .
+
+    $default  reduzir usando a regra 10 (FunctionBody)
+
+
+State 94
+
+   15 StatementList: StatementList ErrStatement .
+
+    $default  reduzir usando a regra 15 (StatementList)
+
+
+State 95
+
+   48 Statement: ExprOpt SEMI .
+
+    $default  reduzir usando a regra 48 (Statement)
+
+
+State 96
+
+   60 GeneralExpr: GeneralExpr COMMA . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 138
+
+
+State 97
+
+   63 Expr: Expr AND . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 139
+
+
+State 98
+
+   62 Expr: Expr ASSIGN . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 140
+
+
+State 99
+
+   73 Expr: Expr AST . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 141
+
+
+State 100
+
+   74 Expr: Expr DIV . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 142
+
+
+State 101
+
+   65 Expr: Expr EQ . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 143
+
+
+State 102
+
+   70 Expr: Expr GE . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 144
+
+
+State 103
+
+   68 Expr: Expr GT . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 145
+
+
+State 104
+
+   69 Expr: Expr LE . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 146
+
+
+State 105
+
+   81 Expr: Expr LSQ . GeneralExpr RSQ
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    GeneralExpr  ir para o estado 147
+    Expr         ir para o estado 57
+
+
+State 106
+
+   67 Expr: Expr LT . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 148
+
+
+State 107
+
+   72 Expr: Expr MINUS . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 149
+
+
+State 108
+
+   75 Expr: Expr MOD . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 150
+
+
+State 109
+
+   66 Expr: Expr NE . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 151
+
+
+State 110
+
+   64 Expr: Expr OR . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 152
+
+
+State 111
+
+   71 Expr: Expr PLUS . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 153
+
+
+State 112
+
+   33 Declarator: AstList ID . LSQ INTLIT RSQ
+   35           | AstList ID .
+
+    LSQ  fazer shift, e ir para o estado 62
+
+    $default  reduzir usando a regra 35 (Declarator)
+
+
+State 113
+
+   18 FunctionDeclarator: AstList ID LPAR ParameterList . RPAR
+   20 ParameterList: ParameterList . COMMA ParameterDeclaration
+
+    COMMA  fazer shift, e ir para o estado 63
+    RPAR   fazer shift, e ir para o estado 154
+
+
+State 114
+
+   33 Declarator: AstList ID LSQ INTLIT . RSQ
+
+    RSQ  fazer shift, e ir para o estado 155
+
+
+State 115
+
+   20 ParameterList: ParameterList COMMA ParameterDeclaration .
+
+    $default  reduzir usando a regra 20 (ParameterList)
+
+
+State 116
+
+   22 ParameterDeclaration: TypeSpec AstList ID .
+
+    $default  reduzir usando a regra 22 (ParameterDeclaration)
+
+
+State 117
+
+   54 Statement: FOR LPAR ExprOpt . SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement
+
+    SEMI  fazer shift, e ir para o estado 156
+
+
+State 118
+
+   52 Statement: IF LPAR GeneralExpr . RPAR ErrStatement
+   53          | IF LPAR GeneralExpr . RPAR ErrStatement ELSE ErrStatement
+   60 GeneralExpr: GeneralExpr . COMMA Expr
+
+    COMMA  fazer shift, e ir para o estado 96
+    RPAR   fazer shift, e ir para o estado 157
+
+
+State 119
+
+   51 Statement: LBRACE error RBRACE .
+
+    $default  reduzir usando a regra 51 (Statement)
+
+
+State 120
+
+   47 ErrStatement: error SEMI .
+
+    $default  reduzir usando a regra 47 (ErrStatement)
+
+
+State 121
+
+   45 ErrStatement: FOR LPAR . ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    $default  reduzir usando a regra 59 (ExprOpt)
+
+    ExprOpt      ir para o estado 158
+    GeneralExpr  ir para o estado 56
+    Expr         ir para o estado 57
+
+
+State 122
+
+   43 ErrStatement: IF LPAR . GeneralExpr RPAR ErrStatement
+   44             | IF LPAR . GeneralExpr RPAR ErrStatement ELSE ErrStatement
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    GeneralExpr  ir para o estado 159
+    Expr         ir para o estado 57
+
+
+State 123
+
+   42 ErrStatement: LBRACE error . RBRACE
+   47             | error . SEMI
+
+    RBRACE  fazer shift, e ir para o estado 160
+    SEMI    fazer shift, e ir para o estado 120
+
+
+State 124
+
+   41 ErrStatement: LBRACE RBRACE .
+
+    $default  reduzir usando a regra 41 (ErrStatement)
+
+
+State 125
+
+   40 ErrStatement: LBRACE StatList . RBRACE
+   56 StatList: StatList . ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RBRACE  fazer shift, e ir para o estado 161
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 128
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 126
+
+   46 ErrStatement: RETURN ExprOpt . SEMI
+
+    SEMI  fazer shift, e ir para o estado 162
+
+
+State 127
+
+   49 Statement: LBRACE StatList RBRACE .
+
+    $default  reduzir usando a regra 49 (Statement)
+
+
+State 128
+
+   56 StatList: StatList ErrStatement .
+
+    $default  reduzir usando a regra 56 (StatList)
+
+
+State 129
+
+   39 ErrStatement: ExprOpt SEMI .
+
+    $default  reduzir usando a regra 39 (ErrStatement)
+
+
+State 130
+
+   90 Expr: LPAR error RPAR .
+
+    $default  reduzir usando a regra 90 (Expr)
+
+
+State 131
+
+   89 Expr: LPAR GeneralExpr RPAR .
+
+    $default  reduzir usando a regra 89 (Expr)
+
+
+State 132
+
+   55 Statement: RETURN ExprOpt SEMI .
+
+    $default  reduzir usando a regra 55 (Statement)
+
+
+State 133
+
+   84 Expr: ID LPAR error . RPAR
+
+    RPAR  fazer shift, e ir para o estado 163
+
+
+State 134
+
+   83 Expr: ID LPAR RPAR .
+
+    $default  reduzir usando a regra 83 (Expr)
+
+
+State 135
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+   92 ExprList: Expr .
+
+    AND     fazer shift, e ir para o estado 97
+    ASSIGN  fazer shift, e ir para o estado 98
+    AST     fazer shift, e ir para o estado 99
+    DIV     fazer shift, e ir para o estado 100
+    EQ      fazer shift, e ir para o estado 101
+    GE      fazer shift, e ir para o estado 102
+    GT      fazer shift, e ir para o estado 103
+    LE      fazer shift, e ir para o estado 104
+    LSQ     fazer shift, e ir para o estado 105
+    LT      fazer shift, e ir para o estado 106
+    MINUS   fazer shift, e ir para o estado 107
+    MOD     fazer shift, e ir para o estado 108
+    NE      fazer shift, e ir para o estado 109
+    OR      fazer shift, e ir para o estado 110
+    PLUS    fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 92 (ExprList)
+
+
+State 136
+
+   82 Expr: ID LPAR ExprList . RPAR
+   91 ExprList: ExprList . COMMA Expr
+
+    COMMA  fazer shift, e ir para o estado 164
+    RPAR   fazer shift, e ir para o estado 165
+
+
+State 137
+
+    8 FunctionBody: LBRACE DeclarationList StatementList RBRACE .
+
+    $default  reduzir usando a regra 8 (FunctionBody)
+
+
+State 138
+
+   60 GeneralExpr: GeneralExpr COMMA Expr .
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AND     fazer shift, e ir para o estado 97
+    ASSIGN  fazer shift, e ir para o estado 98
+    AST     fazer shift, e ir para o estado 99
+    DIV     fazer shift, e ir para o estado 100
+    EQ      fazer shift, e ir para o estado 101
+    GE      fazer shift, e ir para o estado 102
+    GT      fazer shift, e ir para o estado 103
+    LE      fazer shift, e ir para o estado 104
+    LSQ     fazer shift, e ir para o estado 105
+    LT      fazer shift, e ir para o estado 106
+    MINUS   fazer shift, e ir para o estado 107
+    MOD     fazer shift, e ir para o estado 108
+    NE      fazer shift, e ir para o estado 109
+    OR      fazer shift, e ir para o estado 110
+    PLUS    fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 60 (GeneralExpr)
+
+
+State 139
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   63     | Expr AND Expr .
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST    fazer shift, e ir para o estado 99
+    DIV    fazer shift, e ir para o estado 100
+    EQ     fazer shift, e ir para o estado 101
+    GE     fazer shift, e ir para o estado 102
+    GT     fazer shift, e ir para o estado 103
+    LE     fazer shift, e ir para o estado 104
+    LSQ    fazer shift, e ir para o estado 105
+    LT     fazer shift, e ir para o estado 106
+    MINUS  fazer shift, e ir para o estado 107
+    MOD    fazer shift, e ir para o estado 108
+    NE     fazer shift, e ir para o estado 109
+    PLUS   fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 63 (Expr)
+
+
+State 140
+
+   62 Expr: Expr . ASSIGN Expr
+   62     | Expr ASSIGN Expr .
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AND     fazer shift, e ir para o estado 97
+    ASSIGN  fazer shift, e ir para o estado 98
+    AST     fazer shift, e ir para o estado 99
+    DIV     fazer shift, e ir para o estado 100
+    EQ      fazer shift, e ir para o estado 101
+    GE      fazer shift, e ir para o estado 102
+    GT      fazer shift, e ir para o estado 103
+    LE      fazer shift, e ir para o estado 104
+    LSQ     fazer shift, e ir para o estado 105
+    LT      fazer shift, e ir para o estado 106
+    MINUS   fazer shift, e ir para o estado 107
+    MOD     fazer shift, e ir para o estado 108
+    NE      fazer shift, e ir para o estado 109
+    OR      fazer shift, e ir para o estado 110
+    PLUS    fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 62 (Expr)
+
+
+State 141
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   73     | Expr AST Expr .
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    LSQ  fazer shift, e ir para o estado 105
+
+    $default  reduzir usando a regra 73 (Expr)
+
+
+State 142
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   74     | Expr DIV Expr .
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    LSQ  fazer shift, e ir para o estado 105
+
+    $default  reduzir usando a regra 74 (Expr)
+
+
+State 143
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   65     | Expr EQ Expr .
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST    fazer shift, e ir para o estado 99
+    DIV    fazer shift, e ir para o estado 100
+    GE     fazer shift, e ir para o estado 102
+    GT     fazer shift, e ir para o estado 103
+    LE     fazer shift, e ir para o estado 104
+    LSQ    fazer shift, e ir para o estado 105
+    LT     fazer shift, e ir para o estado 106
+    MINUS  fazer shift, e ir para o estado 107
+    MOD    fazer shift, e ir para o estado 108
+    PLUS   fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 65 (Expr)
+
+
+State 144
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   70     | Expr GE Expr .
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST    fazer shift, e ir para o estado 99
+    DIV    fazer shift, e ir para o estado 100
+    LSQ    fazer shift, e ir para o estado 105
+    MINUS  fazer shift, e ir para o estado 107
+    MOD    fazer shift, e ir para o estado 108
+    PLUS   fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 70 (Expr)
+
+
+State 145
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   68     | Expr GT Expr .
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST    fazer shift, e ir para o estado 99
+    DIV    fazer shift, e ir para o estado 100
+    LSQ    fazer shift, e ir para o estado 105
+    MINUS  fazer shift, e ir para o estado 107
+    MOD    fazer shift, e ir para o estado 108
+    PLUS   fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 68 (Expr)
+
+
+State 146
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   69     | Expr LE Expr .
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST    fazer shift, e ir para o estado 99
+    DIV    fazer shift, e ir para o estado 100
+    LSQ    fazer shift, e ir para o estado 105
+    MINUS  fazer shift, e ir para o estado 107
+    MOD    fazer shift, e ir para o estado 108
+    PLUS   fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 69 (Expr)
+
+
+State 147
+
+   60 GeneralExpr: GeneralExpr . COMMA Expr
+   81 Expr: Expr LSQ GeneralExpr . RSQ
+
+    COMMA  fazer shift, e ir para o estado 96
+    RSQ    fazer shift, e ir para o estado 166
+
+
+State 148
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   67     | Expr LT Expr .
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST    fazer shift, e ir para o estado 99
+    DIV    fazer shift, e ir para o estado 100
+    LSQ    fazer shift, e ir para o estado 105
+    MINUS  fazer shift, e ir para o estado 107
+    MOD    fazer shift, e ir para o estado 108
+    PLUS   fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 67 (Expr)
+
+
+State 149
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   72     | Expr MINUS Expr .
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST  fazer shift, e ir para o estado 99
+    DIV  fazer shift, e ir para o estado 100
+    LSQ  fazer shift, e ir para o estado 105
+    MOD  fazer shift, e ir para o estado 108
+
+    $default  reduzir usando a regra 72 (Expr)
+
+
+State 150
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   75     | Expr MOD Expr .
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    LSQ  fazer shift, e ir para o estado 105
+
+    $default  reduzir usando a regra 75 (Expr)
+
+
+State 151
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   66     | Expr NE Expr .
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST    fazer shift, e ir para o estado 99
+    DIV    fazer shift, e ir para o estado 100
+    GE     fazer shift, e ir para o estado 102
+    GT     fazer shift, e ir para o estado 103
+    LE     fazer shift, e ir para o estado 104
+    LSQ    fazer shift, e ir para o estado 105
+    LT     fazer shift, e ir para o estado 106
+    MINUS  fazer shift, e ir para o estado 107
+    MOD    fazer shift, e ir para o estado 108
+    PLUS   fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 66 (Expr)
+
+
+State 152
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   64     | Expr OR Expr .
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AND    fazer shift, e ir para o estado 97
+    AST    fazer shift, e ir para o estado 99
+    DIV    fazer shift, e ir para o estado 100
+    EQ     fazer shift, e ir para o estado 101
+    GE     fazer shift, e ir para o estado 102
+    GT     fazer shift, e ir para o estado 103
+    LE     fazer shift, e ir para o estado 104
+    LSQ    fazer shift, e ir para o estado 105
+    LT     fazer shift, e ir para o estado 106
+    MINUS  fazer shift, e ir para o estado 107
+    MOD    fazer shift, e ir para o estado 108
+    NE     fazer shift, e ir para o estado 109
+    PLUS   fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 64 (Expr)
+
+
+State 153
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   71     | Expr PLUS Expr .
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+
+    AST  fazer shift, e ir para o estado 99
+    DIV  fazer shift, e ir para o estado 100
+    LSQ  fazer shift, e ir para o estado 105
+    MOD  fazer shift, e ir para o estado 108
+
+    $default  reduzir usando a regra 71 (Expr)
+
+
+State 154
+
+   18 FunctionDeclarator: AstList ID LPAR ParameterList RPAR .
+
+    $default  reduzir usando a regra 18 (FunctionDeclarator)
+
+
+State 155
+
+   33 Declarator: AstList ID LSQ INTLIT RSQ .
+
+    $default  reduzir usando a regra 33 (Declarator)
+
+
+State 156
+
+   54 Statement: FOR LPAR ExprOpt SEMI . ExprOpt SEMI ExprOpt RPAR ErrStatement
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    $default  reduzir usando a regra 59 (ExprOpt)
+
+    ExprOpt      ir para o estado 167
+    GeneralExpr  ir para o estado 56
+    Expr         ir para o estado 57
+
+
+State 157
+
+   52 Statement: IF LPAR GeneralExpr RPAR . ErrStatement
+   53          | IF LPAR GeneralExpr RPAR . ErrStatement ELSE ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 168
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 158
+
+   45 ErrStatement: FOR LPAR ExprOpt . SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement
+
+    SEMI  fazer shift, e ir para o estado 169
+
+
+State 159
+
+   43 ErrStatement: IF LPAR GeneralExpr . RPAR ErrStatement
+   44             | IF LPAR GeneralExpr . RPAR ErrStatement ELSE ErrStatement
+   60 GeneralExpr: GeneralExpr . COMMA Expr
+
+    COMMA  fazer shift, e ir para o estado 96
+    RPAR   fazer shift, e ir para o estado 170
+
+
+State 160
+
+   42 ErrStatement: LBRACE error RBRACE .
+
+    $default  reduzir usando a regra 42 (ErrStatement)
+
+
+State 161
+
+   40 ErrStatement: LBRACE StatList RBRACE .
+
+    $default  reduzir usando a regra 40 (ErrStatement)
+
+
+State 162
+
+   46 ErrStatement: RETURN ExprOpt SEMI .
+
+    $default  reduzir usando a regra 46 (ErrStatement)
+
+
+State 163
+
+   84 Expr: ID LPAR error RPAR .
+
+    $default  reduzir usando a regra 84 (Expr)
+
+
+State 164
+
+   91 ExprList: ExprList COMMA . Expr
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    Expr  ir para o estado 171
+
+
+State 165
+
+   82 Expr: ID LPAR ExprList RPAR .
+
+    $default  reduzir usando a regra 82 (Expr)
+
+
+State 166
+
+   81 Expr: Expr LSQ GeneralExpr RSQ .
+
+    $default  reduzir usando a regra 81 (Expr)
+
+
+State 167
+
+   54 Statement: FOR LPAR ExprOpt SEMI ExprOpt . SEMI ExprOpt RPAR ErrStatement
+
+    SEMI  fazer shift, e ir para o estado 172
+
+
+State 168
+
+   52 Statement: IF LPAR GeneralExpr RPAR ErrStatement .
+   53          | IF LPAR GeneralExpr RPAR ErrStatement . ELSE ErrStatement
+
+    ELSE  fazer shift, e ir para o estado 173
+
+    $default  reduzir usando a regra 52 (Statement)
+
+
+State 169
+
+   45 ErrStatement: FOR LPAR ExprOpt SEMI . ExprOpt SEMI ExprOpt RPAR ErrStatement
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    $default  reduzir usando a regra 59 (ExprOpt)
+
+    ExprOpt      ir para o estado 174
+    GeneralExpr  ir para o estado 56
+    Expr         ir para o estado 57
+
+
+State 170
+
+   43 ErrStatement: IF LPAR GeneralExpr RPAR . ErrStatement
+   44             | IF LPAR GeneralExpr RPAR . ErrStatement ELSE ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 175
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 171
+
+   62 Expr: Expr . ASSIGN Expr
+   63     | Expr . AND Expr
+   64     | Expr . OR Expr
+   65     | Expr . EQ Expr
+   66     | Expr . NE Expr
+   67     | Expr . LT Expr
+   68     | Expr . GT Expr
+   69     | Expr . LE Expr
+   70     | Expr . GE Expr
+   71     | Expr . PLUS Expr
+   72     | Expr . MINUS Expr
+   73     | Expr . AST Expr
+   74     | Expr . DIV Expr
+   75     | Expr . MOD Expr
+   81     | Expr . LSQ GeneralExpr RSQ
+   91 ExprList: ExprList COMMA Expr .
+
+    AND     fazer shift, e ir para o estado 97
+    ASSIGN  fazer shift, e ir para o estado 98
+    AST     fazer shift, e ir para o estado 99
+    DIV     fazer shift, e ir para o estado 100
+    EQ      fazer shift, e ir para o estado 101
+    GE      fazer shift, e ir para o estado 102
+    GT      fazer shift, e ir para o estado 103
+    LE      fazer shift, e ir para o estado 104
+    LSQ     fazer shift, e ir para o estado 105
+    LT      fazer shift, e ir para o estado 106
+    MINUS   fazer shift, e ir para o estado 107
+    MOD     fazer shift, e ir para o estado 108
+    NE      fazer shift, e ir para o estado 109
+    OR      fazer shift, e ir para o estado 110
+    PLUS    fazer shift, e ir para o estado 111
+
+    $default  reduzir usando a regra 91 (ExprList)
+
+
+State 172
+
+   54 Statement: FOR LPAR ExprOpt SEMI ExprOpt SEMI . ExprOpt RPAR ErrStatement
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    $default  reduzir usando a regra 59 (ExprOpt)
+
+    ExprOpt      ir para o estado 176
+    GeneralExpr  ir para o estado 56
+    Expr         ir para o estado 57
+
+
+State 173
+
+   53 Statement: IF LPAR GeneralExpr RPAR ErrStatement ELSE . ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 177
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 174
+
+   45 ErrStatement: FOR LPAR ExprOpt SEMI ExprOpt . SEMI ExprOpt RPAR ErrStatement
+
+    SEMI  fazer shift, e ir para o estado 178
+
+
+State 175
+
+   43 ErrStatement: IF LPAR GeneralExpr RPAR ErrStatement .
+   44             | IF LPAR GeneralExpr RPAR ErrStatement . ELSE ErrStatement
+
+    ELSE  fazer shift, e ir para o estado 179
+
+    $default  reduzir usando a regra 43 (ErrStatement)
+
+
+State 176
+
+   54 Statement: FOR LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt . RPAR ErrStatement
+
+    RPAR  fazer shift, e ir para o estado 180
+
+
+State 177
+
+   53 Statement: IF LPAR GeneralExpr RPAR ErrStatement ELSE ErrStatement .
+
+    $default  reduzir usando a regra 53 (Statement)
+
+
+State 178
+
+   45 ErrStatement: FOR LPAR ExprOpt SEMI ExprOpt SEMI . ExprOpt RPAR ErrStatement
+
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    $default  reduzir usando a regra 59 (ExprOpt)
+
+    ExprOpt      ir para o estado 181
+    GeneralExpr  ir para o estado 56
+    Expr         ir para o estado 57
+
+
+State 179
+
+   44 ErrStatement: IF LPAR GeneralExpr RPAR ErrStatement ELSE . ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 182
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 180
+
+   54 Statement: FOR LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR . ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 183
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 181
+
+   45 ErrStatement: FOR LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt . RPAR ErrStatement
+
+    RPAR  fazer shift, e ir para o estado 184
+
+
+State 182
+
+   44 ErrStatement: IF LPAR GeneralExpr RPAR ErrStatement ELSE ErrStatement .
+
+    $default  reduzir usando a regra 44 (ErrStatement)
+
+
+State 183
+
+   54 Statement: FOR LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement .
+
+    $default  reduzir usando a regra 54 (Statement)
+
+
+State 184
+
+   45 ErrStatement: FOR LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR . ErrStatement
+
+    error   fazer shift, e ir para o estado 92
+    AMP     fazer shift, e ir para o estado 35
+    AST     fazer shift, e ir para o estado 36
+    FOR     fazer shift, e ir para o estado 74
+    IF      fazer shift, e ir para o estado 75
+    LBRACE  fazer shift, e ir para o estado 76
+    LPAR    fazer shift, e ir para o estado 40
+    MINUS   fazer shift, e ir para o estado 41
+    NOT     fazer shift, e ir para o estado 42
+    PLUS    fazer shift, e ir para o estado 43
+    RETURN  fazer shift, e ir para o estado 78
+    ID      fazer shift, e ir para o estado 46
+    INTLIT  fazer shift, e ir para o estado 47
+    CHRLIT  fazer shift, e ir para o estado 48
+    STRLIT  fazer shift, e ir para o estado 49
+
+    SEMI  reduzir usando a regra 59 (ExprOpt)
+
+    ErrStatement  ir para o estado 185
+    ExprOpt       ir para o estado 81
+    GeneralExpr   ir para o estado 56
+    Expr          ir para o estado 57
+
+
+State 185
+
+   45 ErrStatement: FOR LPAR ExprOpt SEMI ExprOpt SEMI ExprOpt RPAR ErrStatement .
+
+    $default  reduzir usando a regra 45 (ErrStatement)
