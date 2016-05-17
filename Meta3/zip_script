@@ -1,0 +1,3 @@
+#! /bin/bash
+zip -q -T Projecto3_v27.0.zip mccompiler.l mccompiler.y ast.c ast.h simbtab.c simbtab.h makefile
+zip -q -T mccompiler.zip mccompiler.l mccompiler.y ast.c ast.h simbtab.c simbtab.h
